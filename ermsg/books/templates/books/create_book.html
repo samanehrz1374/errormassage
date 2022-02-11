@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .ing-form{
+            border: 1px solid;
+        }
+        .hidden{
+            display: none;
+        }
+    </style>
+    <h1>creat book for {{author.name}}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <div id="ingridiant-form-list">
+        {{ formset.as_p }}
+        </div>
+        <div id="empty_form" class="hidden">{{formset.empty_form.as_p}}</div>
+        <button id="add-more" type="button">Add more</button>
+        <button>submit</button>
+
+    </form>
+
+<script>
+    const totalNewForms=document.getElementById('id_book_set-TOTAL_FORMS')
+    const addMoreBtn=document.getElementById('add-more')
+
+    addMoreBtn.addEventListener('click',add_new_form)
+    function add_new_form(event){
+        if (event){
+            event.preventDefault()
+        }
+        const currentIngredienForms=document.getElementsByClassName('ing-form')
+
+        const currentFormCount = currentIngredienForms.length //+1
+       
+        const formCopyTarger= document.getElementById('ingridiant-form-list')
+        const copyEmptyFormEl = document.getElementById('empty_form').cloneNode(true)
+        copyEmptyFormEl.setAttribute('class','ing-form')
+        copyEmptyFormEl.setAttribute('id', `form-${currentFormCount}`)
+        const regex = new RegExp('__profix__','g')
+        copyEmptyFormEl.innerHTML= copyEmptyFormEl.innerHTML.replace (regex,currentFormCount)
+
+        totalNewForms.setAttribute('value',currentFormCount+1)
+        formCopyTarger.append(copyEmptyFormEl)
+    }
+
+</script>    
+    
+</body>
+</html>
