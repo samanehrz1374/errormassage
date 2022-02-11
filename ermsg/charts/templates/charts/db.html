@@ -4,18 +4,164 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <!-- <h1>salam</h1> -->
-    {% for result in results %}
-        {{result}}
-    {% endfor %}
-    <!-- {{ times }} -->
-    <!-- {% for time in times %}
-        {{time}}
-    {% endfor %} -->
-    <!-- {{df1}}
-    {{df}} -->
+    <div style="margin: auto;width: 1000px;">
+    <canvas id="myChart" width="100" height="30vh"></canvas>
+    </div>
+    <div style="margin: auto;width: 1000px;">
+        <canvas id="myChart1" width="100" height="30vh"></canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" 
+    integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.0/chartjs-plugin-zoom.min.js" 
+    integrity="sha512-TT0wAMqqtjXVzpc48sI0G84rBP+oTkBZPgeRYIOVRGUdwJsyS3WPipsNh///ay2LJ+onCM23tipnz6EvEy2/UA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script > 
+        var df1 = {{dataa|safe}};
+        var df = {{labelss|safe}};
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                // labels: ['1', '3', '5', '6', '9', '15'],
+                labels: df1,
+                // labels: [1, 3, 5, 6, 9, 15],
+                datasets: [{
+                    label: 'A',
+                    // data: [12, 19, 3, 5, 2, 3],
+                    data:df,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxRotation: 80,
+                            minRotation: 80
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        position: 'right'
+                        
+                    }
+                },
+                plugins:{
+                    zoom:{
+                        pan:{
+                            enabled:true,
+                            mode:'xy'
+                        },
+                        zoom:{
+                            mode:'xy',
+                            wheel:{
+                                enabled:true
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            drag:{
+                                enabled:false
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        });
+        const ctx1 = document.getElementById('myChart1').getContext('2d');
+        const myChart1= new Chart(ctx1, {
+            type: 'line',
+            data: {
+                // labels: ['1', '3', '5', '6', '9', '15'],
+                labels: df1,
+                // labels: [1, 3, 5, 6, 9, 15],
+                datasets: [{
+                    label: 'A',
+                    // data: [12, 19, 3, 5, 2, 3],
+                    data:df,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            maxRotation: 80,
+                            minRotation: 80
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        position: 'right'
+                        
+                    }
+                },
+                plugins:{
+                    zoom:{
+                        pan:{
+                            enabled:true,
+                            mode:'xy'
+                        },
+                        zoom:{
+                            mode:'xy',
+                            wheel:{
+                                enabled:true
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            drag:{
+                                enabled:false
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        });
+    
+    </script>
+   
+    
 </body>
 </html>
