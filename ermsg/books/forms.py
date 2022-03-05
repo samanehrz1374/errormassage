@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.models import inlineformset_factory
+from django.forms.models import inlineformset_factory,modelformset_factory
 
 from .models import Author, Book
 
@@ -13,11 +13,23 @@ class BookForm(forms.ModelForm):
         )
 
 
-BookFormSet = inlineformset_factory(
-    Author,
+# BookFormSet = inlineformset_factory(
+#     Author,
+#     Book,
+#     form=BookForm,
+#     min_num=1,  # minimum number of forms that must be filled in
+#     extra=0,  # number of empty forms to display
+#     can_delete=False  # show a checkbox in each form to delete the row
+# )
+
+
+BookFormSet = modelformset_factory(
     Book,
-    form=BookForm,
-    min_num=1,  # minimum number of forms that must be filled in
-    extra=0,  # number of empty forms to display
-    can_delete=False  # show a checkbox in each form to delete the row
+    fields=('title',),
+    extra=1,
+    widgets={'title': forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Author Name here'
+        })
+    }
 )
